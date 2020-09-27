@@ -1,0 +1,3 @@
+app:
+  googleClientId: 'your-client-id'
+  jwtSecret: 'your-secret'
