@@ -2,7 +2,7 @@
 
 <img src="https://img.shields.io/badge/awesome%20%F0%9F%98%84-100%25-brightgreen">
 
-This project is a full-stack demo of the good old todo list application. Powered by Spring 🍃 on the backend and React ⚛️ on the frontend.
+This project is a full-stack demo of the good old todo list application. Powered by Spring 🍃 and React ⚛️.
 
 ## Authentication
 
