@@ -1,6 +1,7 @@
 package com.example.server.user;
 
 import com.example.server.config.JWTUtils;
+import com.example.server.user.dto.IDTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -39,7 +40,7 @@ public class UserService {
     public String loginOAuthGoogle(IDTokenRequest requestBody) {
         User user = verifyIDToken(requestBody.getIdToken());
         if (user == null) {
-            return null;
+            throw new IllegalArgumentException();
         }
         user = createOrUpdateUser(user);
         return jwtUtils.createToken(user, false);

@@ -1,4 +1,4 @@
-package com.example.server.user;
+package com.example.server.user.dto;
 
 import javax.validation.constraints.NotBlank;
 
