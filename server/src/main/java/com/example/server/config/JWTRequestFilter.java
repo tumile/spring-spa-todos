@@ -1,5 +1,6 @@
 package com.example.server.config;
 
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -29,8 +30,8 @@ public class JWTRequestFilter extends OncePerRequestFilter {
         Cookie authCookie = cookies == null ? null : Arrays.stream(cookies)
                 .filter(cookie -> cookie.getName().equals("AUTH-TOKEN"))
                 .findAny().orElse(null);
-        if (authCookie != null && jwtUtils.verifyToken(authCookie.getValue())) {
-            Authentication authentication = jwtUtils.getAuthentication(authCookie.getValue());
+        Authentication authentication;
+        if (authCookie != null && (authentication = jwtUtils.verifyAndGetAuthentication(authCookie.getValue())) != null) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);

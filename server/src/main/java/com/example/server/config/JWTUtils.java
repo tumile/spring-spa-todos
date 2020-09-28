@@ -40,22 +40,17 @@ public class JWTUtils {
                 .compact();
     }
 
-    public Authentication getAuthentication(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-        var authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(claims.get("role", String.class));
-        return new UsernamePasswordAuthenticationToken(claims.getSubject(), token, authorities);
-    }
-
-    public boolean verifyToken(String token) {
+    public Authentication verifyAndGetAuthentication(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            return true;
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+            var authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(claims.get("role", String.class));
+            return new UsernamePasswordAuthenticationToken(claims.getSubject(), token, authorities);
         } catch (JwtException | IllegalArgumentException ignored) {
-            return false;
+            return null;
         }
     }
 }

@@ -20,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/user/me")
     public ResponseEntity<?> getCurrentUser(Authentication authentication) {
         User user = userService.getUser(Long.parseLong(authentication.getName()));
